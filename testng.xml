@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+
+<suite name="First Test Suite">
+    <test name="ExampleNameTest">
+        <classes>
+            <class name="ru.ya.SearchTest"/>
+            <class name="ru.ya.SearchAnotgerTest"/>
+        </classes>
+    </test>
+</suite>
