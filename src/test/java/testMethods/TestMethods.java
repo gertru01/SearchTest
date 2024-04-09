@@ -1,28 +1,32 @@
 package testMethods;
 
 
+import googleMainPage.GoogleMainPage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import tests.BaseTest;
+
+import java.time.Duration;
 
 public class TestMethods {
+    private ChromeDriver wd = BaseTest.driver;
+    public GoogleMainPage googleMainPage = new GoogleMainPage();
     //Поиск элемента по xpath
-    public WebElement searchElement(ChromeDriver driver,WebElement element, String path) {
-        try {
-            element = driver.findElement(By.xpath(path));
-            return element; //Почему не работает без возврата?
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    private By searchElement() {
+            //element = driver.findElement(By.xpath(path));
+            return By.xpath(googleMainPage.input);
+
     }
 
     //Ввод значения в элемент и нажатие Enter
-    public void textInputAndEnter(WebElement element, String value) {
+    public void textInputAndEnter(String value) {
         try {
-            element.sendKeys(value, Keys.ENTER);
+            wd.findElement(searchElement()).sendKeys(value, Keys.ENTER);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,4 +49,21 @@ public class TestMethods {
             e.printStackTrace();
         }
     }
+
+    private By getFieldValue(String value) {
+        return By.xpath("//*[contains(text(), '" + value + "')]");
+    }
+    public void checkVisibleValue(String value) {
+        Assert.assertTrue(wd.findElement(getFieldValue(value)) != null);
+
+    }
+
+//    private void checkElementIsVisible(By elementBy) {
+//        try {
+//            (new WebDriverWait(wd, Duration.ofSeconds(10))).until(ExpectedConditions.visibilityOfElementLocated(elementBy));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
